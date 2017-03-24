@@ -7,7 +7,7 @@ package alsa
 import (
 	"testing"
 
-	"github.com/cocoonlife/testify/assert"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestCapture(t *testing.T) {
