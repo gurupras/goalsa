@@ -165,7 +165,7 @@ func (d *device) Close() {
 	runtime.SetFinalizer(d, nil)
 }
 
-func (d device) formatSampleSize() (s int) {
+func (d device) FormatSampleSize() (s int) {
 	switch d.Format {
 	case FormatS8, FormatU8:
 		return 1
@@ -205,19 +205,19 @@ func (c *CaptureDevice) Read(buffer interface{}) (samples int, err error) {
 	sizeError := errors.New("Read requires a matching sample size")
 	switch bufferType.Elem().Kind() {
 	case reflect.Int8:
-		if c.formatSampleSize() != 1 {
+		if c.FormatSampleSize() != 1 {
 			return 0, sizeError
 		}
 	case reflect.Int16:
-		if c.formatSampleSize() != 2 {
+		if c.FormatSampleSize() != 2 {
 			return 0, sizeError
 		}
 	case reflect.Int32, reflect.Float32:
-		if c.formatSampleSize() != 4 {
+		if c.FormatSampleSize() != 4 {
 			return 0, sizeError
 		}
 	case reflect.Float64:
-		if c.formatSampleSize() != 8 {
+		if c.FormatSampleSize() != 8 {
 			return 0, sizeError
 		}
 	default:
@@ -269,19 +269,19 @@ func (p *PlaybackDevice) Write(buffer interface{}) (samples int, err error) {
 	sizeError := errors.New("Write requires a matching sample size")
 	switch bufferType.Elem().Kind() {
 	case reflect.Int8:
-		if p.formatSampleSize() != 1 {
+		if p.FormatSampleSize() != 1 {
 			return 0, sizeError
 		}
 	case reflect.Int16:
-		if p.formatSampleSize() != 2 {
+		if p.FormatSampleSize() != 2 {
 			return 0, sizeError
 		}
 	case reflect.Int32, reflect.Float32:
-		if p.formatSampleSize() != 4 {
+		if p.FormatSampleSize() != 4 {
 			return 0, sizeError
 		}
 	case reflect.Float64:
-		if p.formatSampleSize() != 8 {
+		if p.FormatSampleSize() != 8 {
 			return 0, sizeError
 		}
 	default:
