@@ -6,6 +6,7 @@
 package alsa
 
 import (
+	"encoding/binary"
 	"errors"
 	"fmt"
 	"reflect"
@@ -177,6 +178,16 @@ func (d device) FormatSampleSize() (s int) {
 		return 8
 	}
 	panic("unsupported format")
+}
+
+func (d device) Endian() (b binary.ByteOrder) {
+	switch d.Format {
+	case FormatS8, FormatU8, FormatS16LE, FormatU16LE, FormatS24LE, FormatU24LE, FormatS32LE, FormatU32LE, FormatFloatLE, FormatFloat64LE:
+		b = binary.LittleEndian
+	case FormatS16BE, FormatU16BE, FormatS24BE, FormatU24BE, FormatS32BE, FormatU32BE, FormatFloatBE, FormatFloat64BE:
+		b = binary.BigEndian
+	}
+	return
 }
 
 // CaptureDevice is an ALSA device configured to record audio.
